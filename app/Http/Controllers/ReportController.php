@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Driver;
 use App\Models\LicensePlate;
+use App\Models\Report;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class DriverController extends Controller
+class ReportController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $drivers = Driver::with('licensePlate')->get();
-        return Inertia::render('Dashboard/Driver/ShowDriver', ['drivers' => $drivers]);
+        $reports = LicensePlate::has('report')->with('report')->get();
+        return Inertia::render('Dashboard/Report/ShowReport', ['reports' => $reports]);
     }
 
     /**
@@ -23,7 +23,7 @@ class DriverController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Dashboard/Driver/CreateDriver');
+        //
     }
 
     /**
@@ -31,9 +31,7 @@ class DriverController extends Controller
      */
     public function store(Request $request)
     {
-        $driver = new Driver();
-        $driver->name = $request->driverName;
-        $driver->save();
+        //
     }
 
     /**

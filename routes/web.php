@@ -3,6 +3,7 @@
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,16 +28,17 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/home', [HomeController::class, 'index']);
-
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::prefix('dashboard')->group(function () {
+        Route::get('/driver', [DriverController::class, 'index'])->name('driver.show');
         Route::get('/create-driver', [DriverController::class, 'create'])->name('driver.create');
         Route::post('/create-driver', [DriverController::class, 'store'])->name('driver.store');
+
+        Route::get('/report', [ReportController::class, 'index'])->name('report.show');
     });
 });
 

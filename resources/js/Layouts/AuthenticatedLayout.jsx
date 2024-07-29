@@ -29,10 +29,16 @@ export default function Authenticated({ user, header, children }) {
                   Dashboard
                 </NavLink>
                 <NavLink
-                  href={route("driver.create")}
-                  active={route().current("driver.create")}
+                  href={route("driver.show")}
+                  active={route().current("driver.show")}
                 >
-                  Create Driver
+                  Driver
+                </NavLink>
+                <NavLink
+                  href={route("report.show")}
+                  active={route().current("report.show")}
+                >
+                  Report
                 </NavLink>
               </div>
             </div>
