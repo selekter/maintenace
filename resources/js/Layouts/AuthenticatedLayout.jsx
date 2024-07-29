@@ -137,6 +137,18 @@ export default function Authenticated({ user, header, children }) {
             >
               Dashboard
             </ResponsiveNavLink>
+            <ResponsiveNavLink
+              href={route("driver.show")}
+              active={route().current("driver.show")}
+            >
+              Driver
+            </ResponsiveNavLink>
+            <ResponsiveNavLink
+              href={route("report.show")}
+              active={route().current("report.show")}
+            >
+              Report
+            </ResponsiveNavLink>
           </div>
 
           <div className="pt-4 pb-1 border-t border-gray-200">
