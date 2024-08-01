@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LicensePlate;
 use App\Models\Report;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class ReportController extends Controller
@@ -23,7 +24,8 @@ class ReportController extends Controller
      */
     public function create()
     {
-        //
+        $license_plates = LicensePlate::get();
+        return Inertia::render('Dashboard/Report/CreateReport', ['license_plates' => $license_plates]);
     }
 
     /**
@@ -31,7 +33,23 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'license_plate' => 'required',
+            'report' => 'required'
+        ]);
+
+        $existingPlate = LicensePlate::where('number_license_plate', $validated['license_plate'])->first();
+
+        if ($existingPlate) {
+            $report = new Report();
+            $report->report_repair = $validated['report'];
+            $report->license_plate_id = $existingPlate->id;
+            $report->save();
+
+            return to_route('report.show');
+        } else {
+            return Redirect::back()->withErrors(['license_plate' => 'ไม่พบเลขทะเบียนในระบบ'])->withInput();
+        }
     }
 
     /**

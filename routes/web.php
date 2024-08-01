@@ -39,6 +39,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/create-driver', [DriverController::class, 'store'])->name('driver.store');
 
         Route::get('/report', [ReportController::class, 'index'])->name('report.show');
+        Route::get('/report/create', [ReportController::class, 'create'])->name('report.create');
+        Route::post('/report/create', [ReportController::class, 'store'])->name('report.store');
     });
 });
 

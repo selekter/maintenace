@@ -13,7 +13,6 @@ export default function CreateDriver({ auth }) {
       preserveScroll: true,
       onSuccess: () => reset(),
     });
-    // setData("driverName", "");
   }
   return (
     <Authenticated user={auth.user} header="Create Driver">

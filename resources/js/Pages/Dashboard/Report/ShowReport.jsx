@@ -1,3 +1,4 @@
+import LinkButton from "@/Components/LinkButton";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
@@ -9,6 +10,14 @@ export default function ShowDriver({ auth, reports }) {
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className="bg-white shadow-sm sm:rounded-lg">
             <div className="p-6 text-gray-900">
+              <div className="flex flex-col md:flex-row justify-end text-center">
+                <LinkButton
+                  className="bg-blue-500 shadow-blue-500 text-white"
+                  href={route("report.create")}
+                >
+                  Create report
+                </LinkButton>
+              </div>
               <table className="w-full text-center shadow">
                 <thead className="bg-blue-400">
                   <tr>
