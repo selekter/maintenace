@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('license_plates', function (Blueprint $table) {
             $table->id();
-            $table->string('number_license_plate')->unique();
+            $table->string('number_license_plate');
             $table->bigInteger('driver_id');
             $table->timestamps();
         });

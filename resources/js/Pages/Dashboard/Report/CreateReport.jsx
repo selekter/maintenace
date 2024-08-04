@@ -5,7 +5,7 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
 import { useEffect, useRef } from "react";
 
-export default function CreateReport({ auth, license_plates }) {
+export default function CreateReport({ auth }) {
   const { data, setData, post, processing, errors, reset } = useForm({
     license_plate: "",
     report: "",
@@ -71,7 +71,7 @@ export default function CreateReport({ auth, license_plates }) {
                 </div>
                 <div className="flex flex-col md:flex-row">
                   <Button
-                    className="bg-blue-500 text-white"
+                    className="bg-blue-500 hover:bg-blue-800 text-white"
                     disabled={processing}
                   >
                     Save
