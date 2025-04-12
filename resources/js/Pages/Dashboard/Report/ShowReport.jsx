@@ -1,9 +1,21 @@
+import Button from "@/Components/Button";
 import LinkButton from "@/Components/LinkButton";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
+import Swal from "sweetalert2";
 
 export default function ShowDriver({ auth, reports }) {
   console.log(reports);
+
+  const removeReport = (id) => (e) => {
+    e.preventDefault();
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "success",
+    });
+  };
 
   return (
     <Authenticated user={auth.user} header="แจ้งซ่อม">
@@ -48,9 +60,12 @@ export default function ShowDriver({ auth, reports }) {
                       >
                         แก้ไข
                       </LinkButton>
-                      <LinkButton className="bg-red-500 text-white hover:bg-red-800">
+                      <Button
+                        onClick={removeReport(plate.id)}
+                        className="bg-red-500 text-white hover:bg-red-800"
+                      >
                         ลบ
-                      </LinkButton>
+                      </Button>
                     </div>
                   </td>
                 </tr>

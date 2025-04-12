@@ -5,6 +5,7 @@ import TextInput from "@/Components/TextInput";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
 import { useEffect, useRef } from "react";
+import Swal from "sweetalert2";
 
 export default function CreateReport({ auth, license_plates }) {
   const { data, setData, post, processing, errors, reset } = useForm({
@@ -33,7 +34,17 @@ export default function CreateReport({ auth, license_plates }) {
 
     post(route("report.store"), {
       preserveScroll: true,
-      onSuccess: () => reset(),
+      onSuccess: () => {
+        reset();
+        Swal.fire({
+          title: "บันทึกข้อมูลสำเร็จ",
+          icon: "success",
+          text: "บันทึกข้อมูลเรียบร้อยแล้ว",
+          showConfirmButton: false,
+          timer: 1500,
+          timerProgressBar: true,
+        });
+      },
     });
   }
 

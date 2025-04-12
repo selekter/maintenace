@@ -8,7 +8,7 @@ export default function Button({
     <button
       {...props}
       className={
-        `px-5 py-2 rounded transition active:scale-95 ${
+        `px-5 py-2 rounded transition active:scale-95 cursor-pointer ${
           disabled && "opacity-25"
         } ` + className
       }

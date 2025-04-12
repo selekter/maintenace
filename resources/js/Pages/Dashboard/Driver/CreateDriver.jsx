@@ -4,6 +4,7 @@ import LinkButton from "@/Components/LinkButton";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
 import { useEffect, useRef } from "react";
+import Swal from "sweetalert2";
 
 export default function CreateDriver({ auth, csrf_token }) {
   const { data, setData, post, processing, errors, reset } = useForm({
@@ -32,7 +33,17 @@ export default function CreateDriver({ auth, csrf_token }) {
     post(route("driver.store"), {
       _token: csrf_token + "-.-",
       preserveScroll: true,
-      onSuccess: () => reset(),
+      onSuccess: () => {
+        reset(),
+          Swal.fire({
+            title: "บันทึกข้อมูลสำเร็จ",
+            icon: "success",
+            text: "บันทึกข้อมูลเรียบร้อยแล้ว",
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+          });
+      },
     });
   }
 
