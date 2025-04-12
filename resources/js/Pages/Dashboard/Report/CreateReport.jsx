@@ -6,7 +6,7 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
 import { useEffect, useRef } from "react";
 
-export default function CreateReport({ auth }) {
+export default function CreateReport({ auth, license_plates }) {
   const { data, setData, post, processing, errors, reset } = useForm({
     license_plate: "",
     report: "",
