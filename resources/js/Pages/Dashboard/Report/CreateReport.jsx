@@ -6,13 +6,15 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
 import { useEffect, useRef } from "react";
 
-export default function CreateReport({ auth, license_plates }) {
+export default function CreateReport({ auth }) {
   const { data, setData, post, processing, errors, reset } = useForm({
     license_plate: "",
     report: "",
   });
 
-  license_plates.sort((a, b) => a.number_license_plate.localeCompare(b.number_license_plate));
+  license_plates.sort((a, b) =>
+    a.number_license_plate.localeCompare(b.number_license_plate)
+  );
 
   const licensePlateRef = useRef(null);
   const reportRef = useRef(null);
@@ -93,7 +95,7 @@ export default function CreateReport({ auth, license_plates }) {
                 </div>
                 <div className="flex flex-col gap-2 md:flex-row">
                   <Button
-                    className="bg-blue-500 text-white hover:bg-blue-800"
+                    className="bg-blue-500 text-white"
                     disabled={processing}
                   >
                     Save

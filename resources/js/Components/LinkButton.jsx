@@ -6,8 +6,7 @@ export default function LinkButton({ className = "", children, ...props }) {
     <Link
       {...props}
       className={
-        `rounded-xs px-5 py-2 text-center transition active:scale-95 md:py-1 ` +
-        className
+        `px-2 md:px-5 py-2 rounded transition active:scale-95 ` + className
       }
     >
       {children}

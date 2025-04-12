@@ -14,8 +14,6 @@ export default function CreateDriver({ auth, csrf_token }) {
   const driverNameRef = useRef(null);
   const licenseRef = useRef(null);
 
-  console.log(csrf_token);
-
   function submit(e) {
     e.preventDefault();
 
