@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Driver;
 use App\Models\LicensePlate;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -23,7 +24,7 @@ class DriverController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Dashboard/Driver/CreateDriver');
+        return Inertia::render('Dashboard/Driver/CreateDriver', ['csrf_token' => csrf_token()]);
     }
 
     /**
@@ -31,9 +32,22 @@ class DriverController extends Controller
      */
     public function store(Request $request)
     {
+        $validation = $request->validate([
+            'driverName' => 'required',
+            'licensePlate' => 'required'
+        ]);
+
         $driver = new Driver();
         $driver->name = $request->driverName;
         $driver->save();
+
+        $plate = new LicensePlate();
+        $plate->number_license_plate = $request->licensePlate;
+        $plate->driver_id = $driver->id;
+
+        $plate->save();
+
+        return to_route('driver.show');
     }
 
     /**

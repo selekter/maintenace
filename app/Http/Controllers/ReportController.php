@@ -25,7 +25,7 @@ class ReportController extends Controller
     public function create()
     {
         $license_plates = LicensePlate::get();
-        return Inertia::render('Dashboard/Report/CreateReport', ['license_plates' => $license_plates]);
+        return Inertia::render('Dashboard/Report/CreateReport', ['license_plates' => $license_plates, 'csrf_token' => csrf_token()]);
     }
 
     /**
@@ -38,7 +38,7 @@ class ReportController extends Controller
             'report' => 'required'
         ]);
 
-        $existingPlate = LicensePlate::where('number_license_plate', $validated['license_plate'])->first();
+        $existingPlate = LicensePlate::where('id', $validated['license_plate'])->first();
 
         if ($existingPlate) {
             $report = new Report();
@@ -65,7 +65,8 @@ class ReportController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $licensePlate = LicensePlate::find($id);
+        return Inertia::render('Dashboard/Report/EditReport', ['license_plate' => $licensePlate]);
     }
 
     /**

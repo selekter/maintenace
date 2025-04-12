@@ -1,5 +1,6 @@
 import Button from "@/Components/Button";
 import InputLabel from "@/Components/InputLabel";
+import LinkButton from "@/Components/LinkButton";
 import TextInput from "@/Components/TextInput";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
@@ -11,11 +12,22 @@ export default function CreateReport({ auth, license_plates }) {
     report: "",
   });
 
+  license_plates.sort((a, b) => a.number_license_plate.localeCompare(b.number_license_plate));
+
   const licensePlateRef = useRef(null);
   const reportRef = useRef(null);
 
   function saveReport(e) {
     e.preventDefault();
+
+    if (!data.license_plate) {
+      licensePlateRef.current.focus();
+      return;
+    }
+    if (!data.report) {
+      reportRef.current.focus();
+      return;
+    }
 
     post(route("report.store"), {
       preserveScroll: true,
@@ -23,35 +35,44 @@ export default function CreateReport({ auth, license_plates }) {
     });
   }
 
+  console.log(data);
+
   useEffect(() => {
-    if (errors.license_plate) {
-      licensePlateRef.current.focus();
-    } else if (errors.report) {
+    if (errors.report) {
       reportRef.current.focus();
     }
   }, [errors]);
 
   return (
-    <Authenticated user={auth.user} header="Create report">
+    <Authenticated user={auth.user} header="สร้างรายงานการซ่อม">
       <Head title="Create report" />
 
       <div className="py-12">
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-          <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="shadow-2xs overflow-hidden bg-white sm:rounded-lg">
             <div className="p-6 text-gray-900">
               <form onSubmit={saveReport} className="space-y-6">
                 <div>
                   <InputLabel htmlFor="license_plate">ป้ายทะเบียน</InputLabel>
-                  <input
+                  <select
+                    className="block w-full rounded-xs border border-neutral-300 px-3 py-1 shadow-xs focus:border-indigo-200 focus:outline focus:outline-indigo-500 md:w-1/3"
+                    name="license_plate"
                     id="license_plate"
-                    type="text"
-                    className="w-full rounded border border-neutral-300"
-                    value={data.license_plate}
+                    required
+                    defaultValue=""
                     onChange={(e) => setData("license_plate", e.target.value)}
-                    ref={licensePlateRef}
-                  />
+                  >
+                    <option value="" disabled>
+                      เลือกป้ายทะเบียน
+                    </option>
+                    {license_plates.map((plate, key) => (
+                      <option key={key} value={plate.id}>
+                        {plate.number_license_plate}
+                      </option>
+                    ))}
+                  </select>
                   {errors.license_plate && (
-                    <div className="text-red-500 p-2">
+                    <div className="p-2 text-red-500">
                       {errors.license_plate}
                     </div>
                   )}
@@ -63,19 +84,26 @@ export default function CreateReport({ auth, license_plates }) {
                     id="report"
                     value={data.report}
                     onChange={(e) => setData("report", e.target.value)}
+                    required
                     ref={reportRef}
                   />
                   {errors.report && (
                     <div className="text-red-500">{errors.report}</div>
                   )}
                 </div>
-                <div className="flex flex-col md:flex-row">
+                <div className="flex flex-col gap-2 md:flex-row">
                   <Button
-                    className="bg-blue-500 text-white"
+                    className="bg-blue-500 text-white hover:bg-blue-800"
                     disabled={processing}
                   >
                     Save
                   </Button>
+                  <LinkButton
+                    href={route("report.show")}
+                    className="bg-red-500 text-white hover:bg-red-800"
+                  >
+                    Back
+                  </LinkButton>
                 </div>
               </form>
             </div>

@@ -32,13 +32,13 @@ export default function Authenticated({ user, header, children }) {
                   href={route("driver.show")}
                   active={route().current("driver.show")}
                 >
-                  Driver
+                  พนักงานขับรถ
                 </NavLink>
                 <NavLink
                   href={route("report.show")}
                   active={route().current("report.show")}
                 >
-                  Report
+                  แจ้งซ่อม
                 </NavLink>
               </div>
             </div>
@@ -50,7 +50,7 @@ export default function Authenticated({ user, header, children }) {
                     <span className="inline-flex rounded-md">
                       <button
                         type="button"
-                        className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                        className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-hidden transition ease-in-out duration-150"
                       >
                         {user.name}
 
@@ -93,7 +93,7 @@ export default function Authenticated({ user, header, children }) {
                     (previousState) => !previousState
                   )
                 }
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
               >
                 <svg
                   className="h-6 w-6"
@@ -178,7 +178,7 @@ export default function Authenticated({ user, header, children }) {
       </nav>
 
       {header && (
-        <header className="bg-white shadow">
+        <header className="bg-white shadow-xs">
           <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <h2 className="font-semibold text-xl text-gray-800 leading-tight">
               {header}
@@ -187,7 +187,15 @@ export default function Authenticated({ user, header, children }) {
         </header>
       )}
 
-      <main>{children}</main>
+      <main>
+        <div className="py-12">
+          <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div className="bg-white shadow-2xs sm:rounded-lg">
+              <div className="space-y-2 p-6 text-gray-900">{children}</div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
